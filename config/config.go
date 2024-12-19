@@ -845,6 +845,10 @@ func (c *ScrapeConfig) Validate(globalConfig GlobalConfig) error {
 		return fmt.Errorf("%w for scrape config with job name %q", err, c.JobName)
 	}
 
+	if c.ScrapeFallbackProtocol == "" {
+		c.ScrapeFallbackProtocol = "PrometheusText0.0.4"
+	}
+
 	if c.ScrapeFallbackProtocol != "" {
 		if err := c.ScrapeFallbackProtocol.Validate(); err != nil {
 			return fmt.Errorf("invalid fallback_scrape_protocol for scrape config with job name %q: %w", c.JobName, err)
